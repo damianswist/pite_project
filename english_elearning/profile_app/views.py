@@ -11,7 +11,7 @@ from django.contrib.auth import (authenticate, get_user_model)
 # view without authenticating
 
 
-@login_required(login_url="profile_app/")
+@login_required(login_url='/login/')
 def home(request):
     # return render(request,"base.html")
     return render(request, "base.html")
