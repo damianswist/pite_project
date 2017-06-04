@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+
+<script>
+   nv.addGraph(function() {
+  var chart = nv.models.discreteBarChart()
+      .x(function(d) { return d.label })    //Specify the data accessors.
+      .y(function(d) { return d.value })
+      .staggerLabels(true)    //Too many bars and not enough room? Try staggering labels.
+      .tooltips(false)        //Don't show tooltips
+      .showValues(true)       //...instead, show the bar value right on top of each bar.
+      ;
+
+  d3.select('#chart svg')
+      .datum(exampleData())
+      .call(chart);
+
+  nv.utils.windowResize(chart.update);
+
+  return chart;
+});
+
+//Each bar represents a single discrete quantity.
+function exampleData() {
+ return  [
+    {
+      key: "Cumulative Return",
+      values: [
+        {
+          "label" : "Quiz type 1" ,
+          "value" : {{ quiz1 }}
+        } ,
+        {
+          "label" : "Quiz type 2" ,
+          "value" : {{ quiz2 }}
+        } ,
+        {
+          "label" : "Quiz type 3" ,
+          "value" : {{ quiz3 }}
+        }
+      ]
+    }
+  ]
+
+}
+
+
+</script>
+<div id="chart" style="height: 200px;"><svg></svg></div>
+{% endblock %}

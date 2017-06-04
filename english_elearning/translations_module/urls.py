@@ -17,7 +17,7 @@ urlpatterns = [
     url(r'^pol_quiz/?$', login_required(PolQuiz.as_view()), name='PolQuiz'),
     url(r'^eng_quiz/?$', login_required(EngQuiz.as_view()), name='EngQuiz'),
     url(r'^mixedquiz/?$', login_required(MixedQuiz.as_view()), name='MixedQuiz'),
-    url(r'^statistics/?$', login_required(Statistics.as_view()), name='Statistics'),
+    # url(r'^statistics/?$', login_required(Statistics.as_view()), name='Statistics'),
 ]
 
 

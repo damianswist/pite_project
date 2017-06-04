@@ -491,7 +491,7 @@ class QuizSelection(DetailView):
 
 class Statistics(DetailView):
     def get(self, request):
-        return render(request, 'statistics.html')
+        return render(request, 'quiz_statistics.html')
 
 
 class EmailSuggestions(DetailView):

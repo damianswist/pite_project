@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^register/$', RegisterView.as_view(), name='register'),
     url(r'^logout/$', login_required(LogoutView.as_view()), name='logout'),
     url(r'', include('course.urls')),
+    url(r'', include('statistics.urls')),
 ]
