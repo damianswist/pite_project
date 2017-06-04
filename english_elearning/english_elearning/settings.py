@@ -25,7 +25,9 @@ SECRET_KEY = 'o=%1r1$i(9pk6opy!y^3sf+lj$4wz1e*x(_hf$ntfr08-8ketw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [u'learning2017.pythonanywhere.com',
+                 u'localhost',
+                 ]
 
 
 # Application definition
@@ -127,7 +129,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# STATICFILES_DIRS = (
-#   os.path.join(BASE_DIR, 'static/'),
-# )
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'public', 'static')
+
+# settings for e-mail sending
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_FILE_PATH = '~/.virtualenvs/pite_project/pite_project/english_elearning/translations_module/app-messages'
+#DEFAULT_FROM_EMAIL = 'djw@malinator.com'
+#SERVER_EMAIL = 'jan125djw@gmail.com'
+#
+# EMAIL_HOST = 'poczta.o2.pl'
+# EMAIL_PORT = 465
+# EMAIL_HOST_USER = 'python.projekt@o2.pl'
+# EMAIL_HOST_PASSWORD = 'najlepsze'
+# EMAIL_USE_TLS = True
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'python.projekt'
+EMAIL_HOST_PASSWORD = 'najlepsze2017'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

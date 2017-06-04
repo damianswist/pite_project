@@ -1,23 +1,23 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView
 from django.contrib.auth import (authenticate, get_user_model)
 from django.contrib import messages
+from django.shortcuts import render
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse, HttpResponseRedirect
 
 from forms import ChangeEmail, ChangePassword
 
 User = get_user_model()
 
-
 import heapq
-
-
 
 from random import randint
 from models import Words, Translations, UserProgress, Quiz, QuizWords
-
 
 
 class DictionaryView(DetailView):
@@ -39,16 +39,16 @@ class DictionaryView(DetailView):
 
             results = list(Words.objects.filter(id__in=ids))
             translated_words = [translation.word for translation in results]
-            context = {'translated_words': translated_words, 'word_to_translate': word_to_translate , 'language': language}
+            context = {'translated_words': translated_words, 'word_to_translate': word_to_translate,
+                       'language': language}
             return render(request, 'dictionary.html', context)
         else:
             translated_words.append("Word unknown!")
-            context = {'translated_words': translated_words, 'word_to_translate': word_to_translate , 'language': 'none'}
+            context = {'translated_words': translated_words, 'word_to_translate': word_to_translate, 'language': 'none'}
             return render(request, 'dictionary.html', context)
 
 
 class ProfileView(DetailView):
-
     def get(self, request):
         return render(request, 'change_email.html')
 
@@ -67,9 +67,7 @@ class ProfileView(DetailView):
         return render(request, 'change_email.html')
 
 
-
 class PasswordView(DetailView):
-
     def get(self, request):
         return render(request, 'change_password.html')
 
@@ -89,7 +87,6 @@ class PasswordView(DetailView):
 
 
 class QuizMainView(DetailView):
-
     def get(self, request):
         return render(request, 'quiz_main_page.html')
 
@@ -218,7 +215,7 @@ class MixedQuiz(DetailView):
         original_words_id = []
         words_number = 14
         good_answers = 0
-        for i in range(1, words_number+1):
+        for i in range(1, words_number + 1):
             current_word = request.POST.get('word{0}'.format(i), "").lower()
             user_words.append(current_word)
 
@@ -325,7 +322,7 @@ class PolQuiz(DetailView):
         original_words_id = []
         words_number = 10
         good_answers = 0
-        for i in range(1, words_number+1):
+        for i in range(1, words_number + 1):
             current_word = request.POST.get('word{0}'.format(i), "").lower()
             user_words.append(current_word)
 
@@ -416,7 +413,7 @@ class EngQuiz(DetailView):
         original_words_id = []
         words_number = 10
         good_answers = 0
-        for i in range(1, words_number+1):
+        for i in range(1, words_number + 1):
             current_word = request.POST.get('word{0}'.format(i), "").lower()
             user_words.append(current_word)
 
@@ -496,3 +493,23 @@ class Statistics(DetailView):
     def get(self, request):
         return render(request, 'statistics.html')
 
+
+class EmailSuggestions(DetailView):
+    def post(self, request):
+        subject = 'Translation suggestion from user'
+        suggestion_word = request.POST.get('suggestion', "").lower()
+        original_word = request.POST.get('original_word', "").lower()
+        from_email = request.user.email
+
+        message = 'User suggests better translation for word: \'{0}\' : \'{1} \' '.format(original_word,
+                                                                                          suggestion_word)
+        if subject and message and from_email:
+            try:
+                send_mail(subject, message, from_email, ['dawid.wk6@o2.pl'], fail_silently=False)
+                sending_status = 'OK'
+
+            except BadHeaderError:
+                sending_status = 'WRONG'
+
+        context = {'sending_status': sending_status}
+        return render(request, 'suggestion_thanks.html', context=context)
