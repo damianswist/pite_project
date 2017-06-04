@@ -27,6 +27,21 @@
     </b>
     <br> &nbsp;
     <p> {{ word }} </p>
+
 {% endfor %}
 
+{% if word_to_translate %}
+<br>
+<div class="row" align="left">
+<form  action="/suggestion/" method="post" >
+    {% csrf_token %}
+    <div class="row" align="left">
+        <p> Something is wrong? Suggest a better translation! </p>
+        <input id="suggestion" placeholder="Type your proposition" type="text" name="suggestion">
+        <input type="submit" value="Send" align="left">
+        <input type="hidden" name="original_word" value="{{ word_to_translate }}"/>
+    </div>
+</form>
+</div>
+ {% endif %}
 {% endblock %}
