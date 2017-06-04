@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<br>
+{% if sending_status == 'OK' %}
+<h1> Thank you! Your suggestion was sent to us! Have a nice day. </h1>
+{% endif %}
+
+{% if sending_status == 'WRONG' %}
+<h1> Something went wrong! Your suggestion was not sent. </h1>
+{% endif %}
+
+{% endblock %}
