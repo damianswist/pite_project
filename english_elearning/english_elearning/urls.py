@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^login/$', LoginView.as_view(), name='profile_app'),
     url(r'^register/$', RegisterView.as_view(), name='register'),
     url(r'^logout/$', login_required(LogoutView.as_view()), name='logout'),
+    url(r'', include('course.urls')),
 ]

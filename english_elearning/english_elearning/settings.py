@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'profile_app',
     'translations_module',
     'crispy_forms',
+    'course',
 ]
 
 MIDDLEWARE_CLASSES = [
