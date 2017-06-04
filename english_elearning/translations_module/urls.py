@@ -17,6 +17,11 @@ urlpatterns = [
     url(r'^eng_quiz/?$', login_required(EngQuiz.as_view()), name='EngQuiz'),
     url(r'^mixedquiz/?$', login_required(MixedQuiz.as_view()), name='MixedQuiz'),
     url(r'^statistics/?$', login_required(Statistics.as_view()), name='Statistics'),
+    url(r'^$', views.post_list, name='post_list'),
+    url(r'^search_form/$', views.search_form),
+    url(r'^searched/$', views.search),
+    url(r'^searched/$', views.send_email, name='send_email'),
 ]
+
 
 

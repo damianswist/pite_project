@@ -8,6 +8,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.utils import timezone
 
 
 class AuthGroup(models.Model):
@@ -194,3 +195,11 @@ class QuizWords(models.Model):
     class Meta:
         managed = False
         db_table = 'quiz_words'
+
+'''
+class Translation(models.Model):
+	pol_eng = models.CharField(max_length=60)
+	eng_pol = models.CharField(max_lenght=60)
+	suggestions = models.CharField(max_length=60)
+'''
+
